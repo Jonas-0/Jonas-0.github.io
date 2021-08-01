@@ -20,6 +20,31 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   z-index: 3;
   }
 .threeinfo{position: absolute; z-index: 2;  bottom: 4px;}
+.flag-icon-de {
+  background-image: url(images/de.svg);
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  cursor:pointer;
+  position: relative;
+  top : 5px;
+  display: inline-block;
+  width: 20px;
+  height: 15px;
+}
+.flag-icon-gb {
+  background-image: url(images/gb.svg);
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  cursor:pointer;
+  position: relative;
+  top : 5px;
+  left : 10px;
+  display: inline-block;
+  width: 20px;
+  height: 15px;
+}
  
 </style>
 <body class="w3-light-grey">
@@ -32,55 +57,55 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   
     <!-- Left Column -->
     <div class="w3-third">
-    
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
           <img src="images/chris-ried-ieic5Tq8YMk-unsplash.jpg" style="width:100%" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-white">
-            <h2>Jonas</h2>
+            <h2>Jonas</h2>		
           </div>
+		
         </div>
         <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Softwareentwickler</p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>München, DE</p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>notmyday (at) gmx.net</p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><span id="profile job title"></span></p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><span id="profile location"></span></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><span id="profile email"></span></p>
           <!--<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p> -->
           <hr>
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-          <p>C#, Unity</p>
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i><span id="skills header"></span></b></p>
+          <p><span id="skills first"></span></p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
             <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>
           </div>
-          <p>C/C++, Python, JavaScript </p>
+          <p><span id="skills second"></span></p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
             <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>
           </div>
-          <p>Adobe Photoshop, FreeCAD</p>
+          <p><span id="skills third"></span></p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
             <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:50%">50%</div>
           </div>
           <br>
-		  <p class="w3-large"><b><i class="fa fa-plus fa-fw w3-margin-right w3-text-teal"></i>Stärken</b></p>
+		  <p class="w3-large"><b><i class="fa fa-plus fa-fw w3-margin-right w3-text-teal"></i><span id="strengths header"></span></b></p>
 		  <div class="w3-container w3-text-black">
-		  <li>Analytisches Denken und Problemlösungen finden</li>
-		  <li>Mathematisches und Physikalisches Verständnis</li>
-		  <li>Lernbereitschaft und offen für neue Technologien</li>
+		  <li><span id="strengths first"></span></li>
+		  <li><span id="strengths second"></span></li>
+		  <li><span id="strengths third"></span></li>
 		  </div>
 		  <br>
-		  <p class="w3-large"><b><i class="fa fa-heart fa-fw w3-margin-right w3-text-teal"></i>Interessen</b></p>
+		  <p class="w3-large"><b><i class="fa fa-heart fa-fw w3-margin-right w3-text-teal"></i><span id="interests header"></span></b></p>
 		  <div class="w3-container w3-text-black">
-		  <li>Physikalische Simulationen</li>
-		  <li>Clean Code</li>
-		  <li>3D-Printing</li>
+		  <li><span id="interests first"></span></li>
+		  <li><span id="interests second"></span></li>
+		  <li><span id="interests third"></span></li>
 		  </div>
 		  <br>
-          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Sprachen</b></p>
-          <p>Deutsch</p>
+          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i><span id="languages header"></span></b></p>
+          <p><span id="languages German"></span></p>
           <div class="w3-light-grey w3-round-xlarge">
             <div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
           </div>
-          <p>Englisch</p>
+          <p><span id="languages English"></span></p>
           <div class="w3-light-grey w3-round-xlarge">
             <div class="w3-round-xlarge w3-teal" style="height:24px;width:75%"></div>
           </div>
@@ -95,41 +120,40 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     <div class="w3-twothird">
     
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Berufserfahrung</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><span id="working header"></span></h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Softwareentwickler</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Nov 2016 - <span class="w3-tag w3-teal w3-round">Jetzt</span></h6>
+          <h5 class="w3-opacity"><b><span id="working title"></span></b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Nov 2016 - <span class="w3-tag w3-teal w3-round"><span id="working current"></span></span></h6>
           <p>
-		  <li>Erstellen von GUI-Prototypen für Usabilitystudien, Messen und Expertenbewertungen im Bereich Automotive.</li>
-		  <li>Eintwicklung im C#/Unity Framework und wechselnden projektspezifischen Tools.</li>
-		  <li>Eigenständige Projektarbeit sowie Projektleitung mit Kundenbetreuung.</li>
+		  <li><span id="working first"></span></li>
+		  <li><span id="working second"></span></li>
+		  <li><span id="working third"></span></li>
 		  </p>
           <hr>
         </div>
       </div>
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Ausbildung</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><span id="education header"></span></h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Albert-Ludwigs-Universität Freiburg</b></h5>
+          <h5 class="w3-opacity"><b><span id="education master uni"></span></b></h5>
           <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2012 - 2015</h6>
-          <p>MSc Physik</p>
+          <p><span id="education master title"></span></p>
           <hr>
         </div>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Albert-Ludwigs-Universität Freiburg</b></h5>
+          <h5 class="w3-opacity"><b><span id="education bachelor uni"></span></b></h5>
           <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2009 - 2012</h6>
-          <p>BSc Physik</p>
+          <p><span id="education bachelor title"></span></p>
         </div>
       </div>
 	  <div class="w3-container w3-card w3-white" >
 		<div class="threerel" id="threeDiv">
-			<h2 class="w3-text-grey w3-padding-16 threeabs"><i class="fa fa-folder fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Portfolio</h2>
+			<h2 class="w3-text-grey w3-padding-16 threeabs"><i class="fa fa-folder fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><span id="portfolio header"></span></h2>
 			<div  id="threeGUIDiv" class="threerel3">	</div>
 			<div  id="threeJSDiv" class="threerel">	</div>
 			<div class="threeinfo">
-			Mutation des stromdurchflossenen Drahtes(rot) um maximales Magnetfeld im Punkt und Richtung des grünen Pfeils zu erreichen. Dunkelgrüne Linien visualisieren das magnetische Feld.<br>
-			Tools: JavaScript und Three.js. Ich versichere hiermit das Programm selber geschrieben zu haben.
+			<span id="portfolio info"></span>
 			</div>
 		</div>
 	  </div>
@@ -144,10 +168,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 </div>
 
 <footer class="w3-container w3-teal w3-center w3-margin-top">
+     <div class="flag-icon-de" onclick="SetGerman()"></div>
+	  <div class="flag-icon-gb" onclick="SetEnglish()"></div>
   <p>Photo by <a href="https://unsplash.com/photos/ieic5Tq8YMk" target="_blank">Chris Ried</a> on <a href="https://unsplash.com" target="_blank">Unsplashed</a> </p>
   <p>Design Template by <a href="https://www.w3schools.com/w3css/w3css_templates.asp" target="_blank">w3.css</a></p>
   
 </footer>
+	<script src="js/languages.js" ></script>
 	<script src="js/three.min.js" ></script>
 	<script src="js/OrbitControls.js" ></script>
 	<script src="js/dat.gui.min.js" ></script>

@@ -1,16 +1,22 @@
 
-var wire =[new Vec3(-4.0,2.0,-2.0)];
-for (let i = 0; i < 14; i++) {
-  wire.push(new Vec3(-4.0,2.0,0.0));
-}
-wire.push(new Vec3(-4.0,2.0,2.0));
 
-var wireM =[new Vec3(-4.0,2.0,-2.0)];
-for (let i = 0; i < 14; i++) {
-  wireM.push(new Vec3(-4.0,2.0,0.0));
-}
-wireM.push(new Vec3(-4.0,2.0,2.0));
+var wireLength = 16;
 
+//main wire creating magnetic field
+var wire =[new Vec3(-4.0,2.0,-2.0)];		//first point
+for (let i = 0; i < wireLength -2; i++) { 
+  wire.push(new Vec3(-4.0,2.0,0.0));		//centerpieces
+}
+wire.push(new Vec3(-4.0,2.0,2.0));			//last point
+
+//mutated wire creating magnetic field
+var wireM =[new Vec3(-4.0,2.0,-2.0)];		//first point
+for (let i = 0; i < wireLength -2; i++) {
+  wireM.push(new Vec3(-4.0,2.0,0.0));		//centerpieces
+}
+wireM.push(new Vec3(-4.0,2.0,2.0));			//last point
+
+//magnetic lines visualized; startingpositions in grid 3x3x3 except the centerposition, so 27-1 = 26
 var magLineNumber = 1024;
 var magLineStep = 0.1;
 var maglines = [];
@@ -22,8 +28,8 @@ for (let j = 0; j < 26; j++){
   maglines.push(magLine);
 }
 
-var wireLength = 16;
 
+// Arrow to be optimized by magnetic field
 var receiverPos = new Vec3(0.0,0.5,0.0);
 var receiverDir = new Vec3(0.0,1.0,0.0);
 var receiverVal = -1000.0;
@@ -31,19 +37,22 @@ var receiverMVal = -1000.0;
 var receiverDeadRadiusInner = 1.0;
 var receiverDeadRadiusOuter = 4.2;
 
+//mutation parameters
 var muteRange = 2.0;
 var muteParallel = 1;
 var muteAmount = 1;
 var muteAmountFactor = 1;
 var muteAmountQueues = 0;
 var muteActiveGlobal = false;
-var showWire = true ;
-var showMagLine = true;
 var muteSuccesful = 0;
 
+//visualization
+var showWire = true ;
+var showMagLine = true;
 
 
 
+//statrting point to get wireM by mutating wire. Function to be called outside
 function PHSK_MutateWireExperiment(){
 
 	let mutationPoint = 1;
@@ -107,12 +116,12 @@ function PHSK_MutateWireExperiment(){
 	}
 	return successful;
 }
-
+//muatate single v3 point
 function PHSK_MutateSinglePoint( mutationParallelPoint) {
 	wireM[mutationParallelPoint] = GMTR_MutateVector(wire[mutationParallelPoint], muteRange);
 	return 0;
 }
-
+//Check if mutated point collides with inner or outer limits. Check only line with previous point. Not line with next point, bc next point not mutated yet, so this line will change and checked later.
 function PHSK_CheckHalfCollsion(mutationParallelPoint) {
 	
 	let deadZone = new Sphere (receiverPos , receiverDeadRadiusInner);
@@ -128,6 +137,7 @@ function PHSK_CheckHalfCollsion(mutationParallelPoint) {
 	
 	return  0;
 }
+//Check if mutated point collides with inner or outer limits. Check only line with previous point and with next point. If next point is not to be changed. For example last point.
 function PHSK_CheckFullCollsion(mutationParallelPoint) {
 
 		let deadZone = new Sphere ( receiverPos, receiverDeadRadiusInner );
@@ -146,7 +156,7 @@ function PHSK_CheckFullCollsion(mutationParallelPoint) {
 
 	return  0;
 }
-
+//calculate magnetic field receiverVal , the value to be optimized. Magnetic field by wire (non mutated)
 function PHSK_CheckOpt() {
 	let bfeld = new Vec3(0.0,0.0,0.0);
 	let bfeldSum= new Vec3(0.0,0.0,0.0);
@@ -160,7 +170,7 @@ function PHSK_CheckOpt() {
 	}
 	return 0;
 }
-
+//calculate magnetic field receiverMVal , the value to be optimized. Magnetic field by wireM (mutated)
 function PHSK_CheckMute() {
 	let bfeld = new Vec3(0.0,0.0,0.0);
 	let bfeldSum= new Vec3(0.0,0.0,0.0);
@@ -174,7 +184,7 @@ function PHSK_CheckMute() {
 	}
 	return 0;
 }
-
+// if otimization point of muation receiverMVal > receiverVal, then mutation is successful as it improves the system
 function PHSK_AdoptMute() {
 	let successful = 0;
 	if (receiverMVal > receiverVal) {
@@ -197,7 +207,7 @@ function PHSK_AdoptMute() {
 	}
 	return successful;
 }
-
+//set wireM to wire. Helping function, for case of collision. 
 function PHSK_ResetMute() {
 	for (let i = 0; i < 16; i++) {
 		wireM[i].x = wire[i].x;
@@ -206,7 +216,7 @@ function PHSK_ResetMute() {
 	}
 	return 0;
 }
-
+//calculates magnetic field of an array 'draht' (wire or wireM) in point 'BPoint'
 function PHSK_BFeld( draht, BPoint) {
 	if (GMTR_Length(draht) < 10E-10)
 		return new Vec3 (0.0, 0.0, 0.0);
@@ -235,19 +245,18 @@ function PHSK_BFeld( draht, BPoint) {
 	let direction = GMTR_CrossProductNormal(GMTR_VectorDifference(lfp,BPoint), GMTR_VectorDifference(draht.b,  draht.a));
 	return GMTR_ScalarMultiplication(direction, magnitude);
 }
-
+//calculates the array for magnetic field lines 'maglines'
 function PHSK_MagLineCalc() {
+	//counter to avoid centerpiece
 	let k = 0;
 	for (let i = 0; i < 26; i++) {
-		
-		//counter to avoid centerpiece
-		
+			
 		if(i == 13)
 			k+=1;
 		
 		let anchorPos = new Vec3 ( - 4.5 + (4.5 * (k%3)) ,  - 4.5 + (4.5 * (Math.floor(k/3)%3))  , - 4.5 + (4.5 * (Math.floor(k/9)%3)));
 		k+=1;
-		//console.log("x ",anchorPos.x ," y ",anchorPos.y," z ",anchorPos.z);
+
 		maglines[i][magLineNumber/2] = anchorPos;
 		
 		for (let j =(magLineNumber/2 -1); j >= 0; j--) {

@@ -5,11 +5,9 @@ const containerGUI = document.getElementById( 'threeGUIDiv' );
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0xffffff );
 const renderer = new THREE.WebGLRenderer();
-//renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setSize( containerDiv.offsetWidth +32, 600 );
 renderer.domElement.style.position = "relative";
 renderer.domElement.style.left = "-16px";
-//container.appendChild( renderer.domElement );
 containerDiv.appendChild( renderer.domElement );
 
 //camera
@@ -18,10 +16,10 @@ camera.position.z = 20;
 camera.position.y = 10;
 const controls = new THREE.OrbitControls( camera, renderer.domElement );
 
-//init?
+//initial calc of magnetic lines
 PHSK_MagLineCalc();
 
-//Wire Endpoints as Spheres
+// Draw wire endpoints as spheres
 const geometryWireEndpoints = new THREE.SphereGeometry( 0.1, 8, 8 );
 const materialWire = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 
@@ -83,15 +81,15 @@ function UpdateMagLineDraw(){
 
 //Mag Target
 
-const geometryCylinder = new THREE.CylinderGeometry( 0.06, 0.06, 0.4, 16 );
-const materialOpt = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+const geometryCylinder = new THREE.CylinderGeometry( 0.12, 0.12, 0.8, 16 );
+const materialOpt = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
 const cylinder = new THREE.Mesh( geometryCylinder, materialOpt );
 scene.add( cylinder );
 
-const geometryCone = new THREE.ConeGeometry( 0.12,  0.2, 16 );
+const geometryCone = new THREE.ConeGeometry( 0.24,  0.4, 16 );
 const cone = new THREE.Mesh( geometryCone, materialOpt );
 scene.add( cone );
-cone.position.set( 0.0, 0.3,0.0  );
+cone.position.set( 0.0, 0.6,0.0  );
 
 
 // 1u Display
@@ -107,7 +105,7 @@ const geometryU = new THREE.BufferGeometry().setFromPoints( pointsU );
 const lineU = new THREE.Line( geometryU, materialLineU );
 scene.add( lineU );
 
-//text
+//1u text
 const matLiteU = new THREE.MeshBasicMaterial( {
 		color: 0x000000,
 		transparent: true,
@@ -142,14 +140,12 @@ var folder3Dom;
 var folder4Dom;
 var percentProgress;
 
-var panel = new dat.GUI( {autoPlace: false,width: 260} );//, autoplace:false  , height: 400
+var panel = new dat.GUI( {autoPlace: false,width: 260} );
 panel.domElement.style.position = "absolute";
 panel.domElement.style.right = "0px";
 panel.domElement.style.top = "10px";
 panel.domElement.style.height = "600px";
 containerDiv.appendChild(panel.domElement);
-//containerGUI.appendChild(panel.domElement);
-//renderer.domElement.appendChild(panel.domElement);
 var folder1 = panel.addFolder( 'Visibility' );
 var folder2 = panel.addFolder( 'Mutation Settings' );
 var folder3 = panel.addFolder( 'Mutation' );
@@ -332,6 +328,7 @@ function createPanel(){
 }
 createPanel();
 
+//Reset button. All to beginning
 function ResetExperimnet(){
 	wire[0] =new Vec3(-4.0,2.0,-2.0);
 	wireM[0] =new Vec3(-4.0,2.0,-2.0);
@@ -352,6 +349,7 @@ function ResetExperimnet(){
 	folder3.updateDisplay();
 }
 
+//init
 function OnStart(){
 	PHSK_CheckOpt();
 	settings['Magnetic Field'] = (Math.round(receiverVal*100)/100).toString();
@@ -359,7 +357,7 @@ function OnStart(){
 }
 OnStart();
 
-
+//window resize for camera and containers
 function onWindowResize() {
 	renderer.setSize( containerDiv.offsetWidth +32, 600 );
 	 camera.aspect = window.innerWidth / window.innerHeight;
@@ -367,8 +365,10 @@ function onWindowResize() {
 }
 window.addEventListener( 'resize', onWindowResize, false );
 
+//clock for frame time
 let clock = new THREE.Clock();
 
+//actual update if mutations to do. Stops at some point in frame to make an update and continue mutating in next frame, so there are no long freezes.
 function animate() {
 	clock.start();
 	requestAnimationFrame( animate );

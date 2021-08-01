@@ -1,3 +1,5 @@
+//Math and Geometry library.
+
 function Vec3(x,y,z) {
 	this.x = x;
 	this.y = y;
@@ -59,7 +61,7 @@ function GMTR_Distance(v3a,  v3b) {
 	return GMTR_Magnitude(GMTR_VectorAddition(v3a, GMTR_ScalarMultiplication(v3b, -1.0)));
 }
 
-function GMTR_Normalize(v3input){ //Achtung arbitrary 10E-10 smallest Magnitude
+function GMTR_Normalize(v3input){ // 10E-10 smallest Magnitude
 	let mag = GMTR_Magnitude(v3input);
 	if (mag < 10E-10)
 		return new Vec3 ( 0.0, 0.0, 0.0 );
@@ -94,7 +96,7 @@ function GMTR_CrossProduct( a, b) {
 function GMTR_CrossProductNormal( a, b) {
 	return GMTR_Normalize(GMTR_CrossProduct(a,b));
 }
-
+//dropped perpendicular foot 
 function GMTR_Lotfusspunkt( strecke, punkt) {
 	let streckeNull = GMTR_MoveLineSeg(strecke, GMTR_ScalarMultiplication(punkt, -1.0));
 	let streckeNullVec = GMTR_LineSegToVector(streckeNull);
@@ -102,13 +104,13 @@ function GMTR_Lotfusspunkt( strecke, punkt) {
 	if (GMTR_Length(strecke) < 10E-10)
 		return punkt;
 
-	//x + sigma*(y-x) geradengleichung
+	//x + sigma*(y-x) straight line equation
 	let sigma = -1.0*GMTR_DotProduct(streckeNull.a, streckeNullVec) / GMTR_DotProduct(streckeNullVec, streckeNullVec);
 	let lfpNull = GMTR_VectorAddition(streckeNull.a , GMTR_ScalarMultiplication(streckeNullVec, sigma));
 
 	return GMTR_VectorAddition(lfpNull, punkt);
 }
-
+//dropped perpendicular foot + sigma from straight line equation
 function GMTR_LotfusspunktSigma( strecke, punkt) {
 	let streckeNull = GMTR_MoveLineSeg(strecke, GMTR_ScalarMultiplication(punkt, -1.0));
 	let streckeNullVec = GMTR_LineSegToVector(streckeNull);
@@ -116,7 +118,7 @@ function GMTR_LotfusspunktSigma( strecke, punkt) {
 	if (GMTR_Length(strecke) < 10E-10)
 		return new Sphere ( punkt , 0.0 );
 
-	//x + sigma*(y-x) geradengleichung
+	//x + sigma*(y-x) straight line equation
 	let sigma = -1.0*GMTR_DotProduct(streckeNull.a, streckeNullVec) / GMTR_DotProduct(streckeNullVec, streckeNullVec);
 	let lfpNull = GMTR_VectorAddition(streckeNull.a, GMTR_ScalarMultiplication(streckeNullVec, sigma));
 
@@ -164,12 +166,12 @@ function GMTR_DistanceLineSegPoint( ls, point) {
 	let lsVec = GMTR_VectorDifference(ls.b, ls.a);
 	let poinVeca = GMTR_VectorDifference(point, ls.a);
 
-	//Wenn Punkt vor a dann Abstand zu a
+	//If Point before a then distance to a
 	if (GMTR_DotProduct(poinVeca, lsVec) <= 0.0) {  
 		return GMTR_Distance(ls.a,point);
 	}
 
-	//Wenn Punkt vor b dann Abstand zu b
+	//If Point before b then distance to b
 	let poinVecb = GMTR_VectorDifference(point, ls.b);
 	if (GMTR_DotProduct(poinVecb, lsVec) >= 0.0) {
 		return GMTR_Distance(ls.b, point);
@@ -180,6 +182,7 @@ function GMTR_DistanceLineSegPoint( ls, point) {
 
 
 function GMTR_RamdomInit() {
+	//relic from C. Not needed for javaScript. In theory every time once at start of program you need to create a new seed, otherwise ramdom generator has same outcome.
 	//srand(time(NULL));
 	return 0;
 }

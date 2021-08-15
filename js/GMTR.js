@@ -27,7 +27,13 @@ function GMTR_Angle(a,  b){
 		return 0.0;
 	return Math.acos(GMTR_DotProduct(a, b) / (GMTR_Magnitude(a) * GMTR_Magnitude(b)));
 }
-
+function GMTR_Angle_Reference(a,  b , r){
+	let ar = GMTR_VectorDifference(r, a);
+	let br = GMTR_VectorDifference(r, b);
+	if (GMTR_Distance(ar, br) < 10E-10)
+		return 0.0;
+	return Math.acos(GMTR_DotProduct(ar, br) / (GMTR_Magnitude(ar) * GMTR_Magnitude(br)));
+}
 function GMTR_AngleSeg( a, b) {
 	return GMTR_Angle(GMTR_LineSegToVector(a), GMTR_LineSegToVector(b));	
 }
@@ -51,6 +57,9 @@ function GMTR_VectorsToLineSeg( v1,  v2) {
 }
 function GMTR_Magnitude( v3input) {
 	return Math.sqrt(v3input.x*v3input.x + v3input.y*v3input.y + v3input.z*v3input.z);
+}
+function GMTR_MagnitudeSquared( v3input) {
+	return GMTR_DotProduct(v3input,v3input);
 }
 function GMTR_Length(lsinput) {
 	return GMTR_Magnitude(GMTR_LineSegToVector(lsinput));

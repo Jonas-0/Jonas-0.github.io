@@ -176,7 +176,7 @@ function createPanel(){
 	folder1.add( settings, 'Show magnetic field' ).onChange( showMag );
 	folder1.add( settings, 'Show target' ).onChange( showTarget );
 	folder1.add( settings, 'Show unit [u]' ).onChange( showUnit );
-	folder2.add( settings, 'Mutation range [u]', 0.1, 10.0, 0.1 ).onChange(function(range){muteRange = range;});
+	folder2.add( settings, 'Mutation range [u]', 0.1, 12.0, 0.1 ).onChange(function(range){muteRange = range;});
 	folder2.add( settings, 'Mutation parallel', 1, 16, 1 ).onChange(function(range){muteParallel = range;});
 	let mAmount =  folder3.add( settings, '#Mutations', 1, 100, 1 ).onChange(function(amount){muteAmount = amount;});
 	folder3.add( settings, 'x1' ).onChange( MuteFactor1 );
@@ -189,9 +189,6 @@ function createPanel(){
 	mutateButtonStyle.backgroundColor = 'green';
 	mutateButtonStyle.color  = 'black';
 	let magField = folder3.add(settings,'Magnetic Field' ).onChange(function(value){settings['Magnetic Field'] = (Math.round(receiverVal*100)/100).toString();});
-	//let magFieldStyle  = magField.domElement.previousSibling.style;
-	//magFieldStyle.backgroundColor = 'green';
-	//magFieldStyle.color  = 'black';
 	let resetButton = folder3.add( settings, 'Reset' );
 	let resetButtonStyle  = resetButton.domElement.previousSibling.style;
 	resetButtonStyle.backgroundColor = 'red';
@@ -367,6 +364,7 @@ window.addEventListener( 'resize', onWindowResize, false );
 
 //clock for frame time
 let clock = new THREE.Clock();
+
 
 //actual update if mutations to do. Stops at some point in frame to make an update and continue mutating in next frame, so there are no long freezes.
 function animate() {

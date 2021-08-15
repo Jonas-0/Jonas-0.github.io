@@ -75,8 +75,8 @@ function SetEnglish(){
 	workTitle.innerHTML = 'Software developer';
 	workCurrent.innerHTML = 'Current';
 	workFirst.innerHTML = 'Creating GUI prototypes for usability studies, trade fairs und expert assessments in the automotive sector.';
-	workSecond.innerHTML = 'Working on multiple software projects from planning to delivery using C#, Unity platform and project-specific Tools.';
-	workThird.innerHTML = 'Taking on independent project work as well as project management with customer service.';
+	workSecond.innerHTML = 'Working on multiple software projects from planning to delivery using C#, Unity platform and project-specific tools.';
+	workThird.innerHTML = 'Taking on independent project work as well as project management including customer service.';
 	
 	educationHeader.innerHTML = 'Education';
 	educationMasterUni.innerHTML = 'University of Freiburg';
@@ -115,7 +115,7 @@ function SetGerman(){
 	workTitle.innerHTML = 'Softwareentwickler';
 	workCurrent.innerHTML = 'Jetzt';
 	workFirst.innerHTML = 'Erstellen von GUI-Prototypen für Usabilitystudien, Messen und Expertenbewertungen im Automobilbereich.';
-	workSecond.innerHTML = 'Entwicklung von Planung bis Auslieferung auf C#/Unity-Plattform und wechselnden projektspezifischen Tools.';
+	workSecond.innerHTML = 'Entwicklung von Planung bis Auslieferung mit C#, Unity-Plattform und wechselnden projektspezifischen Tools.';
 	workThird.innerHTML = 'Eigenständige Projektarbeit sowie Projektleitung mit Kundenbetreuung.';
 	
 	educationHeader.innerHTML = 'Ausbildung';

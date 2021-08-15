@@ -17,8 +17,8 @@ for (let i = 0; i < wireLength -2; i++) {
 wireM.push(new Vec3(-4.0,2.0,2.0));			//last point
 
 //magnetic lines visualized; startingpositions in grid 3x3x3 except the centerposition, so 27-1 = 26
-var magLineNumber = 1024;
-var magLineStep = 0.1;
+var magLineNumber = 1360;
+var magLineStep = 0.05;
 var maglines = [];
 for (let j = 0; j < 26; j++){ 
   let magLine =[];
@@ -38,7 +38,7 @@ var receiverDeadRadiusInner = 1.0;
 var receiverDeadRadiusOuter = 4.2;
 
 //mutation parameters
-var muteRange = 2.0;
+var muteRange = 6.0;
 var muteParallel = 1;
 var muteAmount = 1;
 var muteAmountFactor = 1;
@@ -218,32 +218,23 @@ function PHSK_ResetMute() {
 }
 //calculates magnetic field of an array 'draht' (wire or wireM) in point 'BPoint'
 function PHSK_BFeld( draht, BPoint) {
-	if (GMTR_Length(draht) < 10E-10)
+	if ( GMTR_MagnitudeSquared(  GMTR_CrossProduct( GMTR_VectorDifference(draht.a ,draht.b ),GMTR_VectorDifference(draht.a ,BPoint )  )) < 10E-10)
 		return new Vec3 (0.0, 0.0, 0.0);
 
-	let lfpS = GMTR_LotfusspunktSigma(draht, BPoint);
-	let lfp = lfpS.m;
-	let sigma = lfpS.r;
-	let lfpBPoinDistance = GMTR_Distance(BPoint, lfp);
 
-	if (lfpBPoinDistance < 10E-10)
-		return new Vec3 ( 0.0, 0.0, 0.0 );
+	let A = draht.a;
+	let B = draht.b;
+	let P = BPoint;
+	
+	let xd = -(GMTR_DotProduct(A,A) - GMTR_DotProduct(A,B) + GMTR_DotProduct(P , GMTR_VectorDifference(A,B))) / (GMTR_Distance(A,B));
+	let x = xd / (GMTR_Distance(A,B));
+	let yd = xd + GMTR_Distance(A,B);
+	
+	let F1 = (yd / GMTR_Distance(P,B)) - (xd / GMTR_Distance(P,A));
+	let F2 = 1 / (GMTR_Distance(P,GMTR_VectorAddition(A,GMTR_ScalarMultiplication(  GMTR_VectorDifference(B,A), x))));
+	let F3 = GMTR_CrossProductNormal( GMTR_VectorDifference(A,B),GMTR_VectorDifference(A,P) );
 
-	let alphaA = GMTR_Angle(draht.a, lfp);
-	let alphaB = GMTR_Angle(draht.b, lfp);
-
-	if (sigma < 0.0) {
-		alphaA *= -1.0;
-		alphaB *= -1.0;
-	}
-	else if (sigma < 1.0) {
-		alphaB *= -1.0;
-	}
-
-	let magnitude = (Math.sin(alphaA) - Math.sin(alphaB)) / lfpBPoinDistance; // Achtung Division 0
-
-	let direction = GMTR_CrossProductNormal(GMTR_VectorDifference(lfp,BPoint), GMTR_VectorDifference(draht.b,  draht.a));
-	return GMTR_ScalarMultiplication(direction, magnitude);
+	return GMTR_ScalarMultiplication(F3,F1*F2);
 }
 //calculates the array for magnetic field lines 'maglines'
 function PHSK_MagLineCalc() {

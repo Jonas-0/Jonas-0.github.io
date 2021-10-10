@@ -76,7 +76,7 @@ function SetEnglish(){
 	workCurrent.innerHTML = 'Current';
 	workFirst.innerHTML = 'Creating GUI prototypes for usability studies, trade fairs und expert assessments in the automotive sector.';
 	workSecond.innerHTML = 'Working on multiple software projects from planning to delivery using C#, Unity platform and project-specific tools.';
-	workThird.innerHTML = 'Taking on independent project work as well as project management including customer service.';
+	workThird.innerHTML = 'Taking on self-reliant project work as well as project management including customer service.';
 	
 	educationHeader.innerHTML = 'Education';
 	educationMasterUni.innerHTML = 'University of Freiburg';
@@ -98,7 +98,7 @@ function SetGerman(){
 	skillsThird.innerHTML = 'Adobe Photoshop, FreeCAD, HTML, CSS';
 	
 	strengthsHeader.innerHTML = 'Stärken';
-	strengthsFirst.innerHTML = 'Analytisches Denken und das Lösen komplexer Probleme';
+	strengthsFirst.innerHTML = 'Analytisches Denken und Lösen komplexer Probleme';
 	strengthsSecond.innerHTML = 'Gutes mathematisches und physikalisches Verständnis';
 	strengthsThird.innerHTML = 'Lernbereitschaft für neue Fertigkeiten und Technologien';
 	
@@ -115,7 +115,7 @@ function SetGerman(){
 	workTitle.innerHTML = 'Softwareentwickler';
 	workCurrent.innerHTML = 'Jetzt';
 	workFirst.innerHTML = 'Erstellen von GUI-Prototypen für Usabilitystudien, Messen und Expertenbewertungen im Automobilbereich.';
-	workSecond.innerHTML = 'Entwicklung von Planung bis Auslieferung mit C#, Unity-Plattform und wechselnden projektspezifischen Tools.';
+	workSecond.innerHTML = 'Entwicklung der Software von Planung bis Auslieferung mit C#, Unity-Plattform und wechselnden projektspezifischen Tools.';
 	workThird.innerHTML = 'Eigenständige Projektarbeit sowie Projektleitung mit Kundenbetreuung.';
 	
 	educationHeader.innerHTML = 'Ausbildung';
@@ -125,5 +125,5 @@ function SetGerman(){
 	educationBachelorTitle.innerHTML = 'BSc Physik';
 	
 	portfolioHeader.innerHTML = 'Portfolio';
-	portfolioInfo.innerHTML = "Mutation des <span style='color: red;'>stromdurchflossenen Leiters</span> um maximales <span style='color: teal;'>Magnetfeld</span> im Punkt und in Richtung des <span style='color: blue; font-weight: bold; font-size: large;'>&#129045;</span> zu erreichen.<br>Tools: JavaScript und Three.js. Ich versichere hiermit das Programm selber geschrieben zu haben.";
+	portfolioInfo.innerHTML = "Mutation des <span style='color: red;'>stromdurchflossenen Leiters</span> um maximales <span style='color: teal;'>Magnetfeld</span> im Punkt und in der Richtung des <span style='color: blue; font-weight: bold; font-size: large;'>&#129045;</span> zu erreichen.<br>Tools: JavaScript und Three.js. Ich versichere hiermit das Programm selber geschrieben zu haben.";
 }

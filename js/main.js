@@ -11,7 +11,7 @@ renderer.domElement.style.left = "-16px";
 containerDiv.appendChild( renderer.domElement );
 
 //camera
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.0001, 1000 );
 camera.position.z = 20;
 camera.position.y = 10;
 const controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -28,11 +28,11 @@ const sphere2 = new THREE.Mesh( geometryWireEndpoints, materialWire );
 scene.add( sphere1 );
 scene.add( sphere2 );
 sphere1.position.set( wire[0].x, wire[0].y,wire[0].z  );
-sphere2.position.set( wire[wireLength-1].x, wire[wireLength-1].y,wire[wireLength-1].z );
+sphere2.position.set( wire[wireLength-2].x, wire[wireLength-2].y,wire[wireLength-2].z );
 
 //WireLines
 const linePoints = [];
-for (let i = 0; i < wireLength; i++) {
+for (let i = 0; i < wireLength-1; i++) {
   linePoints.push(new THREE.Vector3( wire[i].x, wire[i].y, wire[i].z ));
 }
 const geometryLine = new THREE.BufferGeometry().setFromPoints( linePoints );
@@ -40,7 +40,7 @@ const line = new THREE.Line( geometryLine, materialWire );
 scene.add( line );
 
 function UpdateLineDraw(){
-	for (let i = 0; i < wireLength; i++) {
+	for (let i = 0; i < wireLength-1; i++) {
 		linePoints[i] = new THREE.Vector3( wire[i].x, wire[i].y, wire[i].z );
 	}
 	geometryLine.setFromPoints(linePoints);
@@ -329,12 +329,14 @@ createPanel();
 function ResetExperimnet(){
 	wire[0] =new Vec3(-4.0,2.0,-2.0);
 	wireM[0] =new Vec3(-4.0,2.0,-2.0);
-	for (let i = 1; i < wireLength-1; i++) {
+	for (let i = 1; i < wireLength-2; i++) {
 		wire[i] = (new Vec3(-4.0,2.0,0.0));
 		wireM[i] = (new Vec3(-4.0,2.0,0.0));
 	}
-	wire[wireLength-1] = new Vec3(-4.0,2.0,2.0);
-	wireM[wireLength-1] = new Vec3(-4.0,2.0,2.0);
+	wire[wireLength-2] = new Vec3(-4.0,2.0,2.0);
+	wireM[wireLength-2] = new Vec3(-4.0,2.0,2.0);
+	wire[wireLength-1] = new Vec3(-4.0,2.0,-2.0);
+	wireM[wireLength-1] = new Vec3(-4.0,2.0,-2.0);
 	
 	PHSK_CheckOpt();
 	PHSK_CheckMute();

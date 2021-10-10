@@ -4,20 +4,22 @@ var wireLength = 16;
 
 //main wire creating magnetic field
 var wire =[new Vec3(-4.0,2.0,-2.0)];		//first point
-for (let i = 0; i < wireLength -2; i++) { 
+for (let i = 0; i < wireLength -3; i++) { 
   wire.push(new Vec3(-4.0,2.0,0.0));		//centerpieces
 }
 wire.push(new Vec3(-4.0,2.0,2.0));			//last point
+wire.push(new Vec3(-4.0,2.0,-2.0));			//back to first
 
 //mutated wire creating magnetic field
 var wireM =[new Vec3(-4.0,2.0,-2.0)];		//first point
-for (let i = 0; i < wireLength -2; i++) {
+for (let i = 0; i < wireLength -3; i++) {
   wireM.push(new Vec3(-4.0,2.0,0.0));		//centerpieces
 }
 wireM.push(new Vec3(-4.0,2.0,2.0));			//last point
+wireM.push(new Vec3(-4.0,2.0,-2.0));			//back to first
 
 //magnetic lines visualized; startingpositions in grid 3x3x3 except the centerposition, so 27-1 = 26
-var magLineNumber = 1360;
+var magLineNumber =  1024; //1360
 var magLineStep = 0.05;
 var maglines = [];
 for (let j = 0; j < 26; j++){ 
@@ -66,14 +68,14 @@ function PHSK_MutateWireExperiment(){
 	PHSK_CheckOpt();
 	let successful = 0;
 
-	while (mutationParallelPoint < wireLength-1) {
+	while (mutationParallelPoint < wireLength-2) {
 		if (mutationParallelPoint - mutationPoint + 1 >= muteParallel) {
 			lastParallelPoint = 1;
 		}
 		else {
 			lastParallelPoint = 0;
 		}
-		if (mutationParallelPoint == wireLength - 2) {
+		if (mutationParallelPoint == wireLength - 3) {
 			lastParallelPoint = 1;
 		}
 		collision = 1;
@@ -236,17 +238,20 @@ function PHSK_BFeld( draht, BPoint) {
 
 	return GMTR_ScalarMultiplication(F3,F1*F2);
 }
+
 //calculates the array for magnetic field lines 'maglines'
 function PHSK_MagLineCalc() {
 	//counter to avoid centerpiece
-	let k = 0;
+	let l = 0;
 	for (let i = 0; i < 26; i++) {
 			
 		if(i == 13)
-			k+=1;
+			l+=1;
 		
-		let anchorPos = new Vec3 ( - 4.5 + (4.5 * (k%3)) ,  - 4.5 + (4.5 * (Math.floor(k/3)%3))  , - 4.5 + (4.5 * (Math.floor(k/9)%3)));
-		k+=1;
+		let anchorPos = new Vec3 ( - 4.5 + (4.5 * (l%3)) ,  - 4.5 + (4.5 * (Math.floor(l/3)%3))  , - 4.5 + (4.5 * (Math.floor(l/9)%3)));
+		l+=1;
+		//if(i%2 ==1)
+		//	continue
 
 		maglines[i][magLineNumber/2] = anchorPos;
 		
